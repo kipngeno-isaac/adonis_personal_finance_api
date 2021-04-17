@@ -1,5 +1,8 @@
 'use strict'
 
+const UserRepository = use('App/Repositories/UserRepository')
+const User = use('App/Models/User')
+
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
@@ -8,6 +11,10 @@
  * Resourceful controller for interacting with users
  */
 class UserController {
+  constructor() {
+    this.repo = new UserRepository()
+  }
+
   /**
    * Show a list of all users.
    * GET users
@@ -17,55 +24,45 @@ class UserController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index ({ request, response, view }) {
+  async index({ request, response, view }) {
+    try {
+      const users = await User.query().paginate(1, 10)
+      response.status(200).send({
+        status: 'success',
+        users,
+        message: 'Users retrieved successfully'
+      })
+    } catch (error) {
+      response.status(500).send({
+        status: 'error',
+        message: 'Oops! something went wrong please try again',
+        error: error.message
+      })
+    }
   }
 
-  /**
-   * Render a form to be used for creating a new user.
-   * GET users/create
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async create ({ request, response, view }) {
-  }
 
-  /**
-   * Create/save a new user.
-   * POST users
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
-  async store ({ request, response }) {
-  }
 
   /**
    * Display a single user.
    * GET users/:id
    *
    * @param {object} ctx
-   * @param {Request} ctx.request
    * @param {Response} ctx.response
-   * @param {View} ctx.view
    */
-  async show ({ params, request, response, view }) {
+  async show({ params, response }) {
+    try {
+      const user = this.repo.findOne(params)
+      return response.status(user.statusCode).send(user.data)
+    } catch (error) {
+      return response.status(500).json({
+        status: 'error',
+        message: 'Oops!, Something went wrong please try again',
+        error: error.message,
+      })
+    }
   }
 
-  /**
-   * Render a form to update an existing user.
-   * GET users/:id/edit
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async edit ({ params, request, response, view }) {
-  }
 
   /**
    * Update user details.
@@ -75,7 +72,17 @@ class UserController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update ({ params, request, response }) {
+  async update({ params, request, response }) {
+    try {
+      const user = this.repo.update(params, request)
+      return response.status(user.statusCode).send(user.data)
+    } catch (error) {
+      return response.status(500).json({
+        status: 'error',
+        message: 'Oops!, Something went wrong please try again',
+        error: error.message,
+      })
+    }
   }
 
   /**
@@ -83,10 +90,19 @@ class UserController {
    * DELETE users/:id
    *
    * @param {object} ctx
-   * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy ({ params, request, response }) {
+  async destroy({ params, response }) {
+    try {
+      const user = this.repo.delete(params)
+      return response.status(user.statusCode).send(user.data)
+    } catch (error) {
+      return response.status(500).json({
+        status: 'error',
+        message: 'Oops!, Something went wrong please try again',
+        error: error.message,
+      })
+    }
   }
 }
 

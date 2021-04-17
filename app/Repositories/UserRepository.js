@@ -75,7 +75,7 @@ class UserRepository {
   }
 
   async update(params, request) {
-    const userData = request.only(['email', 'username', 'password'])
+    const userData = request.only(['email', 'username', 'firstname', 'lastname', 'password'])
     let response
     try {
       const user = await User.query().where('id', params.id).update(userData)
@@ -98,6 +98,35 @@ class UserRepository {
           status: false,
           error: error.message,
           message: 'Failed to update user'
+        }
+      }
+    }
+    return response
+  }
+
+  async findOne(params) {
+    let response
+    try {
+      const user = await User.find(params.id)
+      if (!user) {
+        throw `Could not find user with id ${params.id}`
+      }
+
+      response = {
+        statusCode: 200,
+        data: {
+          status: true,
+          user,
+          message: 'User has been removed successfully'
+        }
+      }
+    } catch (error) {
+      response = {
+        statusCode: 400,
+        data: {
+          status: false,
+          error: error.message,
+          message: 'Failed to removed user'
         }
       }
     }

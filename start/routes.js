@@ -19,3 +19,15 @@ const Route = use('Route')
 Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 })
+
+Route.group(() => {
+  Route.post('register', 'AuthController.register')
+  Route.post('login', 'AuthController.login')
+}).prefix('auth')
+
+Route.group(() => {
+  Route.get('/users', 'UserController.index')
+  Route.get('/users/:id', 'UserController.show')
+  Route.patch('/users/:id', 'UserController.update')
+  Route.delete('/users/:id', 'UserController.destroy')
+}).prefix('api/v1')
