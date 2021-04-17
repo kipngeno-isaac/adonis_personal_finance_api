@@ -31,3 +31,11 @@ Route.group(() => {
   Route.patch('/users/:id', 'UserController.update')
   Route.delete('/users/:id', 'UserController.destroy')
 }).prefix('api/v1')
+
+Route.group(() => {
+  Route.post('/expenses', 'ExpenseController.store')
+  Route.get('/expenses', 'ExpenseController.index')
+  Route.get('/expenses/:id', 'ExpenseController.show')
+  Route.patch('/expenses/:id', 'ExpenseController.update')
+  Route.delete('/expenses/:id', 'ExpenseController.destroy')
+}).prefix('api/v1')

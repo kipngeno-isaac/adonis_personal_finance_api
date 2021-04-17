@@ -38,6 +38,10 @@ class User extends Model {
   static get hidden() {
     return ['created_at', 'updated_at', 'password']
   }
+
+  expenses() {
+    return this.hasMany('App/Models/Expense')
+  }
 }
 
 module.exports = User
