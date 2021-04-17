@@ -6,7 +6,7 @@ const User = use('App/Models/User')
 class UserRepository {
 
   async register(auth, request) {
-    const userData = request.only(['username', 'firstname', 'lastname', 'email', 'password'])
+    const userData = request.only(['name', 'phone', 'email', 'password'])
     let response
     try {
       const user = await User.create(userData)
@@ -21,6 +21,7 @@ class UserRepository {
         statusCode: 200,
         data: {
           status: 'success',
+          user,
           token,
           message: 'User registration successful'
         }
@@ -56,7 +57,8 @@ class UserRepository {
         statusCode: 200,
         data: {
           status: true,
-          data: accessToken,
+          user,
+          accessToken,
           message: 'Login Successful'
         }
       }
