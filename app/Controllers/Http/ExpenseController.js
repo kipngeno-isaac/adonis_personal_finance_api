@@ -19,7 +19,7 @@ class ExpenseController {
    *
    * @param {object} ctx
    * @param {Request} ctx.request
-   * @param {Response} ctx.response
+   * @param {Response} ctx.response 
    */
   async index({ request, response }) {
     try {

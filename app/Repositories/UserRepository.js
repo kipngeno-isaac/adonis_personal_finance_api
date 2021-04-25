@@ -56,7 +56,7 @@ class UserRepository {
       response = {
         statusCode: 200,
         data: {
-          status: true,
+          status: 'success',
           user,
           accessToken,
           message: 'Login Successful'
@@ -67,7 +67,7 @@ class UserRepository {
       response = {
         statusCode: 400,
         data: {
-          status: false,
+          status: 'error',
           message: 'Ooops! Something went wrong please try again.',
           error: error.message
         }
@@ -88,7 +88,7 @@ class UserRepository {
       response = {
         statusCode: 200,
         data: {
-          status: true,
+          status: 'success',
           user,
           message: 'User has been updated successfully'
         }
@@ -97,7 +97,7 @@ class UserRepository {
       response = {
         statusCode: 400,
         data: {
-          status: false,
+          status: 'error',
           error: error.message,
           message: 'Failed to update user'
         }
@@ -117,7 +117,7 @@ class UserRepository {
       response = {
         statusCode: 200,
         data: {
-          status: true,
+          status: 'success',
           user,
           message: 'User has been removed successfully'
         }
@@ -126,7 +126,7 @@ class UserRepository {
       response = {
         statusCode: 400,
         data: {
-          status: false,
+          status: 'error',
           error: error.message,
           message: 'Failed to removed user'
         }
@@ -148,7 +148,7 @@ class UserRepository {
       response = {
         statusCode: 200,
         data: {
-          status: true,
+          status: 'success',
           user,
           message: 'User has been removed successfully'
         }
@@ -157,7 +157,7 @@ class UserRepository {
       response = {
         statusCode: 400,
         data: {
-          status: false,
+          status: 'error',
           error: error.message,
           message: 'Failed to removed user'
         }
