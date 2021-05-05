@@ -39,3 +39,5 @@ Route.group(() => {
   Route.patch('/expenses/:id', 'ExpenseController.update')
   Route.delete('/expenses/:id', 'ExpenseController.destroy')
 }).prefix('api/v1')
+
+Route.get('test', 'TestController.index')
