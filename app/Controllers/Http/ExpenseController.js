@@ -19,15 +19,15 @@ class ExpenseController {
    *
    * @param {object} ctx
    * @param {Request} ctx.request
-   * @param {Response} ctx.response 
+   * @param {Response} ctx.response
    */
   async index({ request, response }) {
     try {
       const page = request.input('page')
-      const users = await Expense.query().paginate(page, 10)
+      const expenses = await Expense.query().paginate(page, 10)
       response.status(200).send({
         status: 'success',
-        users,
+        expenses,
         message: 'Expenses retrieved successfully'
       })
     } catch (error) {
