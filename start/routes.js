@@ -40,4 +40,9 @@ Route.group(() => {
   Route.delete('/expenses/:id', 'ExpenseController.destroy')
 }).prefix('api/v1')
 
+
+Route.group(() => {
+  Route.get('/categories', 'ExpenseCategoryController.index')
+})
+
 Route.get('test', 'TestController.index')
