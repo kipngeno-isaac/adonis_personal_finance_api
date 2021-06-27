@@ -23,16 +23,17 @@ class ExpenseController {
    */
   async index({ request, response }) {
     try {
+      const userId = request.input('user_id');
       const page = request.input('page')
-      const expenses = await Expense.query().paginate(page, 10)
+      const expenses = await Expense.query().where('user_id', userId).paginate(page, 10)
       response.status(200).send({
-        status: 'success',
+        status: true,
         expenses,
         message: 'Expenses retrieved successfully'
       })
     } catch (error) {
       response.status(500).send({
-        status: 'error',
+        status: false,
         message: 'Oops! something went wrong please try again',
         error: error.message
       })

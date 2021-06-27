@@ -18,7 +18,7 @@ class ExpenseRepository {
       response = {
         statusCode: 200,
         data: {
-          status: 'success',
+          status: true,
           expense,
           message: 'Expense saved successfully'
         }
@@ -27,7 +27,7 @@ class ExpenseRepository {
       response = {
         statusCode: 400,
         data: {
-          status: 'error',
+          status: false,
           error: error.message,
           message: 'Failed to save Expense'
         }
@@ -77,7 +77,7 @@ class ExpenseRepository {
       response = {
         statusCode: 200,
         data: {
-          status: 'success',
+          status: true,
           expense,
           message: `Expense with id ${params.id} has been retrieved successfully`
         }
@@ -86,7 +86,7 @@ class ExpenseRepository {
       response = {
         statusCode: 400,
         data: {
-          status: 'error',
+          status: false,
           error: error.message,
           message: 'Failed to retrieve expense'
         }
@@ -108,7 +108,7 @@ class ExpenseRepository {
       response = {
         statusCode: 200,
         data: {
-          status: 'success',
+          status: true,
           expense,
           message: `Expense with id ${params.id} has been deleted successfully`
         }
@@ -117,7 +117,7 @@ class ExpenseRepository {
       response = {
         statusCode: 400,
         data: {
-          status: 'error',
+          status: false,
           error: error.message,
           message: 'Failed to delete expense'
         }
