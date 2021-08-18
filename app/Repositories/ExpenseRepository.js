@@ -1,39 +1,26 @@
 'use strict'
 
 const Expense = use('App/Models/Expense')
+const moment = require('moment')
 
 
 class ExpenseRepository {
 
   async save(request) {
     const expenseData = request.only(['user_id', 'name', 'amount'])
-    let response
-    try {
-      const expense = await Expense.create(expenseData)
 
-      if (!expense) {
-        throw 'Failed to save Expense please try again'
-      }
+    expenseData.date = moment().format('YYYY-MM-DD');
+    const expense = await Expense.create(expenseData)
 
-      response = {
-        statusCode: 200,
-        data: {
-          status: true,
-          expense,
-          message: 'Expense saved successfully'
-        }
-      }
-    } catch (error) {
-      response = {
-        statusCode: 400,
-        data: {
-          status: false,
-          error: error.message,
-          message: 'Failed to save Expense'
-        }
-      }
+    if (!expense) {
+      throw 'Failed to save Expense please try again'
     }
-    return response
+
+    return {
+      status: true,
+      expense,
+      message: 'Expense saved successfully'
+    }
   }
 
   async update(params, request) {
