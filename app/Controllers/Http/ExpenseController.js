@@ -1,6 +1,7 @@
 'use strict'
 const Expense = use('App/Models/Expense')
 const ExpenseRepository = use('App/Repositories/ExpenseRepository')
+const moment = require('moment')
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
@@ -23,16 +24,20 @@ class ExpenseController {
    */
   async index({ request, response }) {
     try {
+      console.log('moment', moment().format('YYYY-MM-DD'));
       const userId = request.input('user_id');
       const page = request.input('page')
-      const expenses = await Expense.query().where('user_id', userId).paginate(page, 10)
-      response.status(200).send({
+      const expenses = await Expense.query()
+        .where('user_id', userId)
+        .where('date', moment().format('YYYY-MM-DD'))
+        .paginate(page, 10)
+      return response.ok({
         status: true,
         expenses,
         message: 'Expenses retrieved successfully'
       })
     } catch (error) {
-      response.status(500).send({
+      return response.send({
         status: false,
         message: 'Oops! something went wrong please try again',
         error: error.message
@@ -52,9 +57,9 @@ class ExpenseController {
   async store({ request, response }) {
     try {
       const expense = await this.repo.save(request)
-      return response.status(expense.statusCode).send(expense.data)
+      return response.created(expense)
     } catch (error) {
-      return response.status(500).json({
+      return response.send({
         status: 'error',
         message: 'Oops! something went wrong please try again',
         error: error.message
