@@ -38,6 +38,8 @@ Route.group(() => {
   Route.get('/expenses/:id', 'ExpenseController.show')
   Route.patch('/expenses/:id', 'ExpenseController.update')
   Route.delete('/expenses/:id', 'ExpenseController.destroy')
+
+  Route.post('/subscriptions', 'NotificationController.subscribe')
 }).prefix('api/v1')
 
 
