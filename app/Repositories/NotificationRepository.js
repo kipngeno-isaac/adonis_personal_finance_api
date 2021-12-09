@@ -11,7 +11,7 @@ class PushNotification {
       Env.get('PRIVATE_KEY', 'NPXpBe0S8MpYqKOH3n7oU76yTg33RU_vcBUZjGQUEq4')
     )
 
-    Push.sendNotification(subscription, 'This is a test notification ')
+    Push.sendNotification(subscription, 'Subscription to Notifications Succeeded ')
   }
 
 }
