@@ -12,6 +12,20 @@ const Server = use('Server')
 | match.
 |
 */
+
+
+/*
+|--------------------------------------------------------------------------
+| Run Scheduler
+|--------------------------------------------------------------------------
+|
+| Run the scheduler on boot of the web sever.
+|
+*/
+const Scheduler = use('Adonis/Addons/Scheduler')
+Scheduler.run()
+
+
 const globalMiddleware = [
   'Adonis/Middleware/BodyParser',
   'App/Middleware/ConvertEmptyStringsToNull'

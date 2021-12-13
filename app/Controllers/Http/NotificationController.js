@@ -1,5 +1,7 @@
 'use strict'
 
+const Database = require("@adonisjs/lucid/src/Database")
+
 const User = use('App/Models/User')
 const NotificationRepository = use('App/Repositories/NotificationRepository')
 
@@ -16,13 +18,14 @@ class NotificationController {
     user.notification_token = JSON.stringify(subscription)
     await user.save()
 
-    const res = await this.repo.dailyReminder(subscription)
+    const res = await this.repo.subscribe(subscription)
 
     console.log('response', res);
 
     response.ok({ status: true, message: 'subscription successful', data: res })
 
   }
+
 }
 
 module.exports = NotificationController
