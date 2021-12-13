@@ -7,7 +7,7 @@ class AddNotificationTokenColumnSchema extends Schema {
   up() {
     this.alter('users', (table) => {
       // alter table
-      table.json('notification_token')
+      table.text('notification_token')
     })
   }
 
