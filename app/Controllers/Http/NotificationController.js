@@ -1,5 +1,6 @@
 'use strict'
 
+const User = use('App/Models/User')
 const NotificationRepository = use('App/Repositories/NotificationRepository')
 
 class NotificationController {
@@ -9,7 +10,12 @@ class NotificationController {
 
 
   async subscribe({ request, response }) {
-    const subscription = request.post()
+    const { user_id, subscription } = request.post()
+
+    const user = await User.find(user_id)
+    user.notification_token = subscription
+    await user.save()
+
     const res = await this.repo.dailyReminder(subscription)
 
     console.log('response', res);
