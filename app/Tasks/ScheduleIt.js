@@ -6,7 +6,7 @@ const Notification = use('App/Repositories/NotificationRepository')
 
 class ScheduleIt extends Task {
   static get schedule() {
-    return '5 * * * *'
+    return '5 19 * * *'
     // return '*/2 * * * *'
   }
 
