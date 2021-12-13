@@ -13,7 +13,7 @@ class NotificationController {
     const { user_id, subscription } = request.post()
 
     const user = await User.find(user_id)
-    user.notification_token = subscription
+    user.notification_token = JSON.stringify(subscription)
     await user.save()
 
     const res = await this.repo.dailyReminder(subscription)
