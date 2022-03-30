@@ -84,7 +84,7 @@ class ExpenseCategoryController {
    */
   async show({ params, request, response, view }) {
     try {
-      const expenseCategories = await ExpenseCategory().query().where('user_id', params.user_id).fetch()
+      const expenseCategories = await ExpenseCategory.query().where('user_id', params.user_id).fetch()
       response.send({
         status: 'success',
         data: expenseCategories,
