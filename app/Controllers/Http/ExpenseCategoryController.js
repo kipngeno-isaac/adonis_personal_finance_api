@@ -1,6 +1,8 @@
 'use strict'
 
 const ExpenseCategory = use('App/Models/ExpenseCategory')
+const CategoryRepository = use('App/Repositories/CategoryRepository')
+
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
@@ -9,6 +11,9 @@ const ExpenseCategory = use('App/Models/ExpenseCategory')
  * Resourceful controller for interacting with expensecategories
  */
 class ExpenseCategoryController {
+  constructor() {
+    this.repo = new CategoryRepository()
+  }
   /**
    * Show a list of all expensecategories.
    * GET expensecategories
@@ -20,7 +25,7 @@ class ExpenseCategoryController {
    */
   async index({ request, response, view }) {
     try {
-      const expenseCategories = await new ExpenseCategory().query().where('user_id', userId).fetch()
+      const expenseCategories = await ExpenseCategory().query().where('user_id', userId).fetch()
       response.send({
         status: 'success',
         data: expenseCategories,
@@ -56,6 +61,16 @@ class ExpenseCategoryController {
    * @param {Response} ctx.response
    */
   async store({ request, response }) {
+    try {
+      const category = await this.repo.save(request)
+      return response.created(category)
+    } catch (error) {
+      return response.send({
+        status: 'error',
+        message: 'Oops! something went wrong please try again',
+        error: error.message
+      })
+    }
   }
 
   /**
@@ -68,6 +83,20 @@ class ExpenseCategoryController {
    * @param {View} ctx.view
    */
   async show({ params, request, response, view }) {
+    try {
+      const expenseCategories = await ExpenseCategory().query().where('user_id', params.user_id).fetch()
+      response.send({
+        status: 'success',
+        data: expenseCategories,
+        message: 'Expense categories retrieved successfully'
+      })
+    } catch (error) {
+      response.send({
+        status: 'error',
+        message: error.message || 'Oops!, something went wrong please try again',
+        error: error
+      })
+    }
   }
 
   /**

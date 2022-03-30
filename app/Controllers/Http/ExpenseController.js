@@ -29,7 +29,7 @@ class ExpenseController {
       const page = request.input('page')
       const expenses = await Expense.query()
         .where('user_id', userId)
-        .where('date', moment().format('YYYY-MM-DD'))
+        // .where('date', moment().format('YYYY-MM-DD'))
         .paginate(page, 10)
       return response.ok({
         status: true,
