@@ -46,7 +46,6 @@ Route.group(() => {
 Route.group(() => {
   Route.get('/categories/:user_id', 'ExpenseCategoryController.show')
   Route.post('/categories', 'ExpenseCategoryController.store')
-
 })
 
 Route.get('test', 'TestController.index')
