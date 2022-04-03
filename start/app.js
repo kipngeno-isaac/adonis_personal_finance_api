@@ -28,8 +28,7 @@ const providers = [
 |
 */
 const aceProviders = [
-  '@adonisjs/lucid/providers/MigrationsProvider',
-  'adonis-cron/providers/CommandsProvider'
+  '@adonisjs/lucid/providers/MigrationsProvider'
 ]
 
 /*
@@ -44,9 +43,7 @@ const aceProviders = [
 |   { Route: 'Adonis/Src/Route' }
 |
 */
-const aliases = {
-  Scheduler: 'Adonis/Addons/Scheduler'
-}
+const aliases = {}
 
 /*
 |--------------------------------------------------------------------------
